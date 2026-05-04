@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0b0d10" />
+<title>Arcadia × Revenue Reimagined — Bridging the GTM Gap™</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0d10;
+    --bg-2:#101317;
+    --surface:#14181d;
+    --surface-2:#1a1f25;
+    --line:#262c34;
+    --line-2:#323943;
+    --ink:#f4f4f2;
+    --ink-dim:#b9bfc7;
+    --ink-mute:#7a828d;
+    --accent:#c9a96a;        /* warm gold — executive */
+    --accent-ink:#0b0d10;
+    --danger:#e86a5c;
+    --good:#7fbf8a;
+    --radius:14px;
+    --radius-lg:18px;
+    --shadow:0 10px 40px rgba(0,0,0,.35);
+    --maxw:680px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  body{min-height:100dvh;display:flex;flex-direction:column}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  button{font-family:inherit}
+
+  /* Header */
+  header.app-header{
+    position:sticky;top:0;z-index:5;
+    backdrop-filter:saturate(140%) blur(10px);
+    background:rgba(11,13,16,.78);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{
+    max-width:var(--maxw);margin:0 auto;padding:14px 20px;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+  }
+  .brand .lockup{display:flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim)}
+  .brand .lockup .x{color:var(--ink-mute)}
+  .brand .lockup b{color:var(--ink);font-weight:600;letter-spacing:.14em}
+  .brand .step{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute)}
+  .progress{height:2px;background:var(--line);}
+  .progress > i{display:block;height:100%;background:var(--accent);width:0;transition:width .5s cubic-bezier(.2,.7,.2,1)}
+
+  /* Layout */
+  main{flex:1;display:flex;justify-content:center;padding:28px 20px 80px}
+  .stage{max-width:var(--maxw);width:100%;}
+  .step{display:none;animation:fade .4s ease both}
+  .step.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  .eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:14px}
+  h1.display{
+    font-family:'Fraunces',Georgia,serif;
+    font-weight:600;letter-spacing:-.01em;
+    font-size:clamp(30px,6vw,44px);line-height:1.08;margin:0 0 18px
+  }
+  h2.display{
+    font-family:'Fraunces',Georgia,serif;font-weight:600;letter-spacing:-.01em;
+    font-size:clamp(24px,4.6vw,32px);line-height:1.15;margin:0 0 14px
+  }
+  p.lead{font-size:17px;line-height:1.6;color:var(--ink-dim);margin:0 0 16px}
+  p.sub{font-size:15px;line-height:1.55;color:var(--ink-mute);margin:0 0 22px}
+  .rule{height:1px;background:var(--line);margin:22px 0}
+
+  /* Buttons */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    padding:16px 22px;border-radius:12px;border:1px solid transparent;
+    font-weight:600;font-size:16px;cursor:pointer;transition:transform .15s ease, background .2s, border-color .2s, color .2s;
+    width:100%;
+  }
+  .btn-primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  .btn-primary:hover{transform:translateY(-1px);filter:brightness(1.05)}
+  .btn-primary:disabled{opacity:.4;cursor:not-allowed;transform:none;filter:none}
+  .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line-2)}
+  .btn-ghost:hover{border-color:var(--ink-mute)}
+  .btn-row{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+  .btn-row .btn{flex:1;min-width:140px}
+
+  /* Cards (stages) */
+  .stages{display:grid;grid-template-columns:1fr;gap:12px;margin:18px 0 8px}
+  @media (min-width:640px){.stages{grid-template-columns:1fr 1fr}}
+  .stage-card{
+    background:linear-gradient(180deg,var(--surface) 0%, var(--bg-2) 100%);
+    border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px 16px;position:relative;
+  }
+  .stage-card .num{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .stage-card h3{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:20px;margin:6px 0 8px;letter-spacing:-.01em}
+  .stage-card p{margin:0;color:var(--ink-dim);font-size:14.5px;line-height:1.5}
+
+  /* Choice pills */
+  .choices{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+  .choice{
+    display:flex;align-items:center;gap:14px;width:100%;text-align:left;
+    background:var(--surface);border:1px solid var(--line);color:var(--ink);
+    padding:18px 18px;border-radius:12px;font-size:16px;font-weight:500;cursor:pointer;
+    transition:border-color .15s, background .15s, transform .05s;
+  }
+  .choice:hover{border-color:var(--line-2);background:var(--surface-2)}
+  .choice:active{transform:scale(.998)}
+  .choice .dot{
+    width:18px;height:18px;border-radius:50%;border:1.5px solid var(--line-2);
+    flex:0 0 18px;display:inline-flex;align-items:center;justify-content:center;
+  }
+  .choice.selected{border-color:var(--accent);background:rgba(201,169,106,.07)}
+  .choice.selected .dot{border-color:var(--accent);background:var(--accent)}
+  .choice.selected .dot::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent-ink)}
+  .choice[data-multi="true"] .dot{border-radius:5px}
+  .choice[data-multi="true"].selected .dot::after{
+    content:"";width:10px;height:6px;border:2px solid var(--accent-ink);border-top:0;border-right:0;
+    transform:rotate(-45deg) translate(1px,-1px);background:transparent;border-radius:0
+  }
+  .choice .label{flex:1}
+  .choice .num{font-size:11px;letter-spacing:.18em;color:var(--ink-mute);text-transform:uppercase}
+
+  .helper{font-size:13px;color:var(--ink-mute);margin-top:10px}
+  .helper.warn{color:var(--danger)}
+  .helper.italic{font-style:italic}
+
+  /* Form fields */
+  .field{margin-top:18px}
+  .field label{display:block;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:8px;font-weight:600}
+  .input,.textarea{
+    width:100%;background:var(--surface);border:1px solid var(--line);color:var(--ink);
+    border-radius:12px;padding:16px 16px;font-size:16px;font-family:inherit;line-height:1.5;
+    transition:border-color .15s, background .15s;
+  }
+  .input:focus,.textarea:focus{outline:none;border-color:var(--accent);background:var(--surface-2)}
+  .textarea{min-height:140px;resize:vertical}
+  .count{font-size:12px;color:var(--ink-mute);margin-top:6px;text-align:right}
+
+  /* Summary */
+  .summary{
+    background:linear-gradient(180deg,var(--surface) 0%, var(--bg-2) 100%);
+    border:1px solid var(--line);border-radius:var(--radius-lg);padding:22px;margin-top:8px;
+  }
+  .summary h4{margin:0 0 14px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+  .summary dl{margin:0;display:grid;grid-template-columns:120px 1fr;gap:10px 14px}
+  .summary dt{color:var(--ink-mute);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+  .summary dd{margin:0;color:var(--ink);font-size:15px;line-height:1.45}
+  .summary .tags{display:flex;flex-wrap:wrap;gap:6px}
+  .summary .tag{background:rgba(201,169,106,.10);color:var(--accent);border:1px solid rgba(201,169,106,.25);padding:4px 10px;border-radius:999px;font-size:12.5px;font-weight:600}
+
+  /* Footer / co-brand */
+  footer.app-footer{
+    border-top:1px solid var(--line);background:var(--bg-2);
+    padding:22px 20px;margin-top:36px;
+  }
+  .foot{max-width:var(--maxw);margin:0 auto;color:var(--ink-mute);font-size:13px;line-height:1.6}
+  .foot b{color:var(--ink-dim);font-weight:600}
+  .foot .lockup-foot{letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim);font-size:12px;margin-bottom:6px}
+
+  /* Misc */
+  .center{text-align:center}
+  .nowrap{white-space:nowrap}
+  .toast{
+    position:fixed;left:50%;bottom:24px;transform:translateX(-50%);
+    background:#1d2329;border:1px solid var(--line-2);color:var(--ink);
+    padding:12px 16px;border-radius:10px;box-shadow:var(--shadow);font-size:14px;display:none
+  }
+  .toast.show{display:block;animation:fade .25s ease}
+
+  /* Big-screen polish */
+  @media (min-width:780px){
+    .brand{padding:18px 24px}
+    main{padding:48px 24px 100px}
+  }
+</style>
+</head>
+<body>
+
+<header class="app-header" role="banner">
+  <div class="brand">
+    <div class="lockup"><b>Arcadia</b><span class="x">×</span><b>Revenue Reimagined</b></div>
+    <div class="step" id="stepIndicator">Step 1 of 5</div>
+  </div>
+  <div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+</header>
+
+<main>
+  <div class="stage" id="stage">
+
+    <!-- STEP 0: Welcome -->
+    <section class="step active" data-step="0">
+      <div class="eyebrow">Bridging the GTM Gap™ · Prework</div>
+      <h1 class="display">5 Minutes Before the Room Changes Everything</h1>
+      <p class="lead">You're joining 60+ revenue leaders for a 90-minute working session at Arcadia. This isn't a keynote. It's not a panel. It's a peer-driven diagnostic where serious people get honest about the real gaps in their go-to-market.</p>
+      <p class="lead">To make the most of your 90 minutes, we need 5 of yours now.</p>
+      <p class="lead">Your answers shape who you sit with, what your table works on, and what you walk out with. The more honest you are here, the more valuable the room will be.</p>
+
+      <div class="field">
+        <label for="firstName">First name <span style="text-transform:none;letter-spacing:0;color:var(--ink-mute);font-weight:400">— optional, for personalization only</span></label>
+        <input class="input" id="firstName" type="text" autocomplete="given-name" placeholder="e.g. Jordan" />
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" data-next>Start the Diagnostic →</button>
+      </div>
+    </section>
+
+    <!-- STEP 1: Stages orientation -->
+    <section class="step" data-step="1">
+      <div class="eyebrow">A 60-Second Orientation</div>
+      <h2 class="display">The GTM Gap has four stages.</h2>
+      <p class="sub">One of these will feel familiar. Keep it in mind.</p>
+
+      <div class="stages">
+        <article class="stage-card">
+          <div class="num">Stage 1</div>
+          <h3>Stabilization</h3>
+          <p>Every week is a new fire. Pipeline feels like fiction. Leadership can't agree on what the real problem is.</p>
+        </article>
+        <article class="stage-card">
+          <div class="num">Stage 2</div>
+          <h3>Foundation</h3>
+          <p>There's traction, but it lives in a few people's heads. New hires take forever to ramp. The tech stack is bloated and underused.</p>
+        </article>
+        <article class="stage-card">
+          <div class="num">Stage 3</div>
+          <h3>Repeatability</h3>
+          <p>Pockets of excellence that don't transfer. Top performers carry the team. Playbooks exist but nobody uses them.</p>
+        </article>
+        <article class="stage-card">
+          <div class="num">Stage 4</div>
+          <h3>Scalability</h3>
+          <p>Growth is happening but feels fragile. What got you here is starting to crack. Expansion exposes gaps that were invisible at smaller scale.</p>
+        </article>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" data-prev>Back</button>
+        <button class="btn btn-primary" data-next>These resonate. Let's get specific →</button>
+      </div>
+    </section>
+
+    <!-- STEP 2: Company context -->
+    <section class="step" data-step="2">
+      <div class="eyebrow">Company Context</div>
+      <h2 class="display">What is your company's current annual revenue?</h2>
+      <div class="choices" data-group="revenue_band" data-mode="single">
+        <button class="choice" data-value="Under $5M"><span class="dot"></span><span class="label">Under $5M</span></button>
+        <button class="choice" data-value="$5M – $15M"><span class="dot"></span><span class="label">$5M – $15M</span></button>
+        <button class="choice" data-value="$15M – $50M"><span class="dot"></span><span class="label">$15M – $50M</span></button>
+        <button class="choice" data-value="$50M – $100M"><span class="dot"></span><span class="label">$50M – $100M</span></button>
+        <button class="choice" data-value="$100M+"><span class="dot"></span><span class="label">$100M+</span></button>
+      </div>
+
+      <div class="rule"></div>
+
+      <h2 class="display">What is your primary role?</h2>
+      <div class="choices" data-group="role" data-mode="single">
+        <button class="choice" data-value="Founder / CEO"><span class="dot"></span><span class="label">Founder / CEO</span></button>
+        <button class="choice" data-value="CRO / VP Sales"><span class="dot"></span><span class="label">CRO / VP Sales</span></button>
+        <button class="choice" data-value="CMO / VP Marketing"><span class="dot"></span><span class="label">CMO / VP Marketing</span></button>
+        <button class="choice" data-value="VP / Head of CS"><span class="dot"></span><span class="label">VP / Head of CS</span></button>
+        <button class="choice" data-value="RevOps / GTM Ops"><span class="dot"></span><span class="label">RevOps / GTM Ops</span></button>
+        <button class="choice" data-value="Other GTM Leadership"><span class="dot"></span><span class="label">Other GTM Leadership</span></button>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" data-prev>Back</button>
+        <button class="btn btn-primary" data-next disabled>Continue →</button>
+      </div>
+    </section>
+
+    <!-- STEP 3: Core diagnostic -->
+    <section class="step" data-step="3">
+      <div class="eyebrow">The Core Diagnostic</div>
+      <h2 class="display">What's the GTM problem you're bringing to Arcadia?</h2>
+      <p class="sub">Pick your top two. These are the most common challenges revenue leaders at your stage are actively working through. Be honest — this shapes your table.</p>
+
+      <div class="choices" data-group="top_challenges" data-mode="multi" data-max="2">
+        <button class="choice" data-multi="true" data-value="Pipeline quality and forecast accuracy"><span class="dot"></span><span class="label">Pipeline quality and forecast accuracy</span></button>
+        <button class="choice" data-multi="true" data-value="Sales and marketing alignment"><span class="dot"></span><span class="label">Sales and marketing alignment</span></button>
+        <button class="choice" data-multi="true" data-value="Onboarding and ramping new revenue hires"><span class="dot"></span><span class="label">Onboarding and ramping new revenue hires</span></button>
+        <button class="choice" data-multi="true" data-value="Building repeatable playbooks (getting off hero dependency)"><span class="dot"></span><span class="label">Building repeatable playbooks (getting off hero dependency)</span></button>
+        <button class="choice" data-multi="true" data-value="Compensation and incentive structure"><span class="dot"></span><span class="label">Compensation and incentive structure</span></button>
+        <button class="choice" data-multi="true" data-value="Top of funnel — generating qualified demand"><span class="dot"></span><span class="label">Top of funnel — generating qualified demand</span></button>
+        <button class="choice" data-multi="true" data-value="Customer retention and expansion (NRR)"><span class="dot"></span><span class="label">Customer retention and expansion (NRR)</span></button>
+        <button class="choice" data-multi="true" data-value="RevOps and tech stack consolidation"><span class="dot"></span><span class="label">RevOps and tech stack consolidation</span></button>
+        <button class="choice" data-multi="true" data-value="Hiring the right GTM leaders"><span class="dot"></span><span class="label">Hiring the right GTM leaders</span></button>
+        <button class="choice" data-multi="true" data-value="Moving from founder-led to team-led sales"><span class="dot"></span><span class="label">Moving from founder-led to team-led sales</span></button>
+      </div>
+      <div class="helper" id="multiHelper">Select up to two.</div>
+
+      <div class="field">
+        <label for="challengeDescription">What this looks like day-to-day</label>
+        <textarea class="textarea" id="challengeDescription" maxlength="400" rows="3"
+          placeholder="e.g. Our forecast swings by 40% every month and my team can't explain why deal velocity is different rep to rep."></textarea>
+        <div class="count"><span id="cdCount">0</span> / 400 · 1–2 sentences</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" data-prev>Back</button>
+        <button class="btn btn-primary" data-next disabled>Continue →</button>
+      </div>
+    </section>
+
+    <!-- STEP 4: Pre-reflection -->
+    <section class="step" data-step="4">
+      <div class="eyebrow">The Pre-Reflection</div>
+      <h2 class="display">Before the room helps you solve it — what have you already tried?</h2>
+      <p class="sub">You'll be working through this live. The best table conversations start with someone who's already done the thinking. This is that thinking.</p>
+
+      <div class="field">
+        <label for="priorAttempts">What you've tried · what worked · what didn't · what's still unclear</label>
+        <textarea class="textarea" id="priorAttempts" maxlength="1200" rows="6"
+          placeholder="Be specific. Not 'we tried to improve pipeline' but 'we added a new qualification framework in Q1 and saw a 2-week improvement in cycle time but it broke down when new reps joined.'"></textarea>
+        <div class="count"><span id="paCount">0</span> / 1200 · 3–5 sentences</div>
+        <div class="helper italic" style="margin-top:10px">This stays between you and the Revenue Reimagined team. Chatham House Rules apply to what you share in the room and in this diagnostic.</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-ghost" data-prev>Back</button>
+        <button class="btn btn-primary" data-next disabled>Submit My Diagnostic →</button>
+      </div>
+    </section>
+
+    <!-- STEP 5: Confirmation -->
+    <section class="step" data-step="5">
+      <div class="eyebrow">You're In</div>
+      <h2 class="display">Here's what happens next.</h2>
+
+      <div class="summary" id="summaryCard">
+        <h4>Your Diagnostic</h4>
+        <dl>
+          <dt>Revenue band</dt><dd id="sumRevenue">—</dd>
+          <dt>Role</dt><dd id="sumRole">—</dd>
+          <dt>Top challenges</dt><dd><div class="tags" id="sumTags"></div></dd>
+          <dt>Reflection</dt><dd id="sumReflection" style="color:var(--good)">Saved.</dd>
+        </dl>
+      </div>
+
+      <p class="lead" style="margin-top:22px">Based on your diagnostic, you'll be grouped with leaders working through similar challenges at Arcadia. Your table will have 6–8 people — some at your stage, some who've already been through it.</p>
+      <p class="lead">The conversation starts with a personal reflection prompt you'll receive in the room. What you just wrote is the warmup.</p>
+
+      <div class="btn-row">
+        <a class="btn btn-ghost" id="calBtn" href="#" target="_blank" rel="noopener">Add Workshop to Calendar</a>
+      </div>
+      <div class="helper" style="margin-top:8px">[INSERT DATE / TIME / LOCATION] — the calendar link above is a placeholder until event details are finalized.</div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="app-footer">
+  <div class="foot">
+    <div class="lockup-foot">Arcadia × Revenue Reimagined</div>
+    <div><b>Bridging the GTM Gap™</b> · Facilitated by Adam Jay, Dale Zwizinski &amp; Jake Reni</div>
+    <div style="margin-top:4px"><a href="https://www.revenue-reimagined.com" target="_blank" rel="noopener">www.revenue-reimagined.com</a> · <a href="https://www.arcadialeadershipexperience.com/" target="_blank" rel="noopener">arcadialeadershipexperience.com</a></div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  // ---- CONFIG ----
+  const WEBHOOK_URL = "[INSERT WEBHOOK URL]";          // generic webhook
+  const ZAPIER_HOOK = "[INSERT ZAPIER HOOK URL]";      // optional secondary
+  const HUBSPOT_PORTAL_ID = "[INSERT HUBSPOT PORTAL ID]";
+  const HUBSPOT_FORM_GUID = "[INSERT HUBSPOT FORM GUID]";
+  const CALENDAR_URL = "[INSERT CALENDAR URL]";
+  const STORAGE_KEY = "arcadia-prework-draft-v1";
+  const SUBMIT_KEY  = "arcadia-prework-submissions-v1";
+
+  // ---- STATE ----
+  const state = {
+    step: 0,
+    totalSteps: 6, // 0..5
+    name: "",
+    revenue_band: "",
+    role: "",
+    top_challenges: [],
+    challenge_description: "",
+    prior_attempts: ""
+  };
+
+  // ---- HELPERS ----
+  const $  = (s, r=document) => r.querySelector(s);
+  const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+  const toast = (msg, ms=2400) => {
+    const t = $("#toast"); t.textContent = msg; t.classList.add("show");
+    clearTimeout(toast._t); toast._t = setTimeout(()=>t.classList.remove("show"), ms);
+  };
+  const saveDraft = () => {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){}
+  };
+  const loadDraft = () => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(!raw) return;
+      const d = JSON.parse(raw);
+      Object.assign(state, d);
+    } catch(e){}
+  };
+
+  // ---- RENDER STEPS ----
+  function showStep(n){
+    state.step = Math.max(0, Math.min(state.totalSteps-1, n));
+    $$(".step").forEach(el => el.classList.toggle("active", Number(el.dataset.step) === state.step));
+    // progress: step 0 = 5%, step 5 = 100%
+    const pct = state.step === 0 ? 6 : Math.round((state.step / (state.totalSteps-1)) * 100);
+    $("#progressBar").style.width = pct + "%";
+    const visibleStep = Math.min(state.step + 1, 5);
+    $("#stepIndicator").textContent = state.step === 5 ? "Complete" : `Step ${Math.min(state.step,5)} of 5`.replace("Step 0","Welcome");
+    // header label tweaks
+    if(state.step === 0) $("#stepIndicator").textContent = "Welcome";
+    else if(state.step === 5) $("#stepIndicator").textContent = "Complete";
+    else $("#stepIndicator").textContent = `Step ${state.step} of 4`;
+    window.scrollTo({top:0, behavior:"smooth"});
+    refreshGates();
+  }
+
+  // ---- SELECTION LOGIC ----
+  function bindChoices(){
+    $$(".choices").forEach(group => {
+      const key = group.dataset.group;
+      const mode = group.dataset.mode;
+      const max = Number(group.dataset.max || 1);
+      group.addEventListener("click", e => {
+        const btn = e.target.closest(".choice");
+        if(!btn) return;
+        const val = btn.dataset.value;
+        if(mode === "single"){
+          state[key] = val;
+          $$(".choice", group).forEach(c => c.classList.toggle("selected", c === btn));
+        } else {
+          const list = state[key];
+          const idx = list.indexOf(val);
+          if(idx >= 0){
+            list.splice(idx,1);
+            btn.classList.remove("selected");
+          } else {
+            if(list.length >= max){
+              toast(`Pick up to ${max}.`);
+              return;
+            }
+            list.push(val);
+            btn.classList.add("selected");
+          }
+          const helper = $("#multiHelper");
+          if(helper){
+            helper.textContent = list.length === max
+              ? `Two selected — you can change either by tapping it.`
+              : `Select up to ${max}. (${list.length}/${max} chosen)`;
+          }
+        }
+        saveDraft();
+        refreshGates();
+      });
+    });
+  }
+
+  // ---- NEXT/PREV ----
+  function bindNav(){
+    document.addEventListener("click", e => {
+      if(e.target.closest("[data-next]")) {
+        if(state.step === 4) return submit();
+        showStep(state.step + 1);
+      }
+      if(e.target.closest("[data-prev]")) showStep(state.step - 1);
+    });
+  }
+
+  // ---- INPUTS ----
+  function bindInputs(){
+    const fn = $("#firstName");
+    fn.addEventListener("input", () => { state.name = fn.value.trim(); saveDraft(); });
+
+    const cd = $("#challengeDescription");
+    const cdc = $("#cdCount");
+    cd.addEventListener("input", () => {
+      state.challenge_description = cd.value;
+      cdc.textContent = cd.value.length;
+      saveDraft(); refreshGates();
+    });
+
+    const pa = $("#priorAttempts");
+    const pac = $("#paCount");
+    pa.addEventListener("input", () => {
+      state.prior_attempts = pa.value;
+      pac.textContent = pa.value.length;
+      saveDraft(); refreshGates();
+    });
+  }
+
+  // ---- GATES (enable/disable next buttons) ----
+  function refreshGates(){
+    const step = state.step;
+    const next = $$(`.step[data-step="${step}"] [data-next]`)[0];
+    if(!next) return;
+    let ok = true;
+    if(step === 2) ok = !!state.revenue_band && !!state.role;
+    else if(step === 3) ok = state.top_challenges.length >= 1 && state.challenge_description.trim().length >= 10;
+    else if(step === 4) ok = state.prior_attempts.trim().length >= 20;
+    next.disabled = !ok;
+  }
+
+  // ---- HYDRATE FROM DRAFT ----
+  function hydrate(){
+    if(state.name) $("#firstName").value = state.name;
+    if(state.challenge_description){
+      $("#challengeDescription").value = state.challenge_description;
+      $("#cdCount").textContent = state.challenge_description.length;
+    }
+    if(state.prior_attempts){
+      $("#priorAttempts").value = state.prior_attempts;
+      $("#paCount").textContent = state.prior_attempts.length;
+    }
+    // restore selections
+    $$(".choices").forEach(group => {
+      const key = group.dataset.group;
+      const mode = group.dataset.mode;
+      $$(".choice", group).forEach(btn => {
+        const v = btn.dataset.value;
+        const sel = mode === "single" ? state[key] === v : (state[key]||[]).includes(v);
+        btn.classList.toggle("selected", !!sel);
+      });
+    });
+  }
+
+  // ---- SUBMIT ----
+  async function submit(){
+    const payload = {
+      timestamp: new Date().toISOString(),
+      name: state.name || null,
+      revenue_band: state.revenue_band,
+      role: state.role,
+      top_challenges: state.top_challenges,
+      challenge_description: state.challenge_description.trim(),
+      prior_attempts: state.prior_attempts.trim(),
+      source: "arcadia-prework"
+    };
+
+    // local store always
+    try {
+      const all = JSON.parse(localStorage.getItem(SUBMIT_KEY) || "[]");
+      all.push(payload);
+      localStorage.setItem(SUBMIT_KEY, JSON.stringify(all));
+    } catch(e){}
+
+    // Webhook (best-effort)
+    const sendOne = async (url) => {
+      if(!url || url.startsWith("[INSERT")) return false;
+      try {
+        const r = await fetch(url, {
+          method:"POST",
+          headers:{"Content-Type":"application/json"},
+          body: JSON.stringify(payload),
+          mode:"cors",
+          keepalive:true
+        });
+        return r.ok;
+      } catch(e){ return false; }
+    };
+    sendOne(WEBHOOK_URL);
+    sendOne(ZAPIER_HOOK);
+
+    // HubSpot Forms API (best-effort)
+    if(!HUBSPOT_PORTAL_ID.startsWith("[INSERT") && !HUBSPOT_FORM_GUID.startsWith("[INSERT")){
+      const hsBody = {
+        fields: [
+          {name:"firstname", value: state.name || ""},
+          {name:"revenue_band", value: state.revenue_band},
+          {name:"gtm_role", value: state.role},
+          {name:"top_challenges", value: state.top_challenges.join("; ")},
+          {name:"challenge_description", value: state.challenge_description},
+          {name:"prior_attempts", value: state.prior_attempts}
+        ],
+        context:{ pageUri: location.href, pageName: document.title }
+      };
+      try{
+        await fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`,{
+          method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(hsBody)
+        });
+      }catch(e){}
+    }
+
+    // Render summary
+    $("#sumRevenue").textContent = state.revenue_band || "—";
+    $("#sumRole").textContent = state.role || "—";
+    const tags = $("#sumTags"); tags.innerHTML = "";
+    state.top_challenges.forEach(c => {
+      const span = document.createElement("span");
+      span.className = "tag"; span.textContent = c;
+      tags.appendChild(span);
+    });
+    const cal = $("#calBtn");
+    if(!CALENDAR_URL.startsWith("[INSERT")){
+      cal.href = CALENDAR_URL;
+    } else {
+      cal.addEventListener("click", e => { e.preventDefault(); toast("Calendar link coming soon."); });
+    }
+
+    // Clear draft (keep submission record)
+    try { localStorage.removeItem(STORAGE_KEY); } catch(e){}
+
+    showStep(5);
+  }
+
+  // ---- ADMIN VIEW (?admin=1) ----
+  function maybeAdmin(){
+    const params = new URLSearchParams(location.search);
+    if(params.get("admin") !== "1") return;
+    const pwd = prompt("Admin password:");
+    if(pwd !== "bridging-the-gap") return; // change in production
+    const all = JSON.parse(localStorage.getItem(SUBMIT_KEY) || "[]");
+    document.body.innerHTML = "";
+    const wrap = document.createElement("div");
+    wrap.style.cssText = "padding:24px;font-family:Inter,system-ui;color:#f4f4f2;background:#0b0d10;min-height:100vh";
+    wrap.innerHTML = `<h2 style="font-family:Fraunces,Georgia,serif">Arcadia Prework — Submissions (${all.length})</h2>
+      <p style="color:#7a828d">Local-storage view (this device only). For full data use the connected webhook destination.</p>`;
+    const table = document.createElement("table");
+    table.style.cssText="width:100%;border-collapse:collapse;font-size:13px";
+    table.innerHTML = `<thead><tr>
+      ${["When","Name","Revenue","Role","Top Challenges","Day-to-Day","Prior Attempts"]
+        .map(h=>`<th style="text-align:left;border-bottom:1px solid #262c34;padding:8px;color:#c9a96a;text-transform:uppercase;font-size:11px;letter-spacing:.14em">${h}</th>`).join("")}
+      </tr></thead>`;
+    const tb = document.createElement("tbody");
+    all.slice().reverse().forEach(r => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = [r.timestamp, r.name||"—", r.revenue_band, r.role,
+        (r.top_challenges||[]).join(" · "), r.challenge_description, r.prior_attempts]
+        .map(v=>`<td style="border-bottom:1px solid #1a1f25;padding:10px;vertical-align:top">${(v??"").toString().replace(/[<>&]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]))}</td>`).join("");
+      tb.appendChild(tr);
+    });
+    table.appendChild(tb);
+    wrap.appendChild(table);
+    document.body.appendChild(wrap);
+  }
+
+  // ---- BOOT ----
+  loadDraft();
+  bindChoices();
+  bindNav();
+  bindInputs();
+  hydrate();
+  showStep(state.step || 0);
+  maybeAdmin();
+})();
+</script>
+</body>
+</html>
