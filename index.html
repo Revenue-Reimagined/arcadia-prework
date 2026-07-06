@@ -117,13 +117,12 @@
   .choice.selected{border-color:var(--accent);background:rgba(201,169,106,.07)}
   .choice.selected .dot{border-color:var(--accent);background:var(--accent)}
   .choice.selected .dot::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent-ink)}
-  .choice[data-multi="true"] .dot{border-radius:5px}
-  .choice[data-multi="true"].selected .dot::after{
-    content:"";width:10px;height:6px;border:2px solid var(--accent-ink);border-top:0;border-right:0;
-    transform:rotate(-45deg) translate(1px,-1px);background:transparent;border-radius:0
-  }
   .choice .label{flex:1}
   .choice .num{font-size:11px;letter-spacing:.18em;color:var(--ink-mute);text-transform:uppercase}
+  .choice.ranked{border-color:var(--accent);background:rgba(201,169,106,.07);cursor:grab;touch-action:none}
+  .choice.ranked .dot{border-color:var(--accent);background:var(--accent);color:var(--accent-ink);font-size:11px;font-weight:800;line-height:1}
+  .choice.ranked::after{content:"⣿";color:var(--ink-mute);font-size:15px;line-height:1;letter-spacing:-2px;opacity:.55;margin-left:2px}
+  .choice.dragging{cursor:grabbing;opacity:.6;transform:scale(1.01);box-shadow:0 8px 24px rgba(0,0,0,.35);position:relative;z-index:5}
 
   .helper{font-size:13px;color:var(--ink-mute);margin-top:10px}
   .helper.warn{color:var(--danger)}
@@ -201,13 +200,19 @@
       <p class="lead">Your answers shape who you sit with, what your table works on, and what you walk out with. The more honest you are here, the more valuable the room will be.</p>
 
       <div class="field">
-        <label for="firstName">First name <span style="text-transform:none;letter-spacing:0;color:var(--ink-mute);font-weight:400">— optional, for personalization only</span></label>
-        <input class="input" id="firstName" type="text" autocomplete="given-name" placeholder="e.g. Jordan" />
+        <label for="fullName">Full name</label>
+        <input class="input" id="fullName" type="text" autocomplete="name" placeholder="e.g. Jordan Rivera" />
+      </div>
+      <div class="field">
+        <label for="email">Work email</label>
+        <input class="input" id="email" type="email" inputmode="email" autocomplete="email" placeholder="you@company.com" />
+        <div class="helper">We use this only to match you to your table and your worksheet before the event. What you write stays with the Revenue Reimagined team — Chatham House Rules apply.</div>
       </div>
 
       <div class="btn-row">
-        <button class="btn btn-primary" data-next>Start the Diagnostic →</button>
+        <button class="btn btn-primary" data-next disabled>Start the Diagnostic →</button>
       </div>
+      <div class="helper" style="margin-top:10px">About 5 minutes. Please finish by <b>[INSERT CUTOFF DATE]</b> — after that we lock the tables and can't seat late responses.</div>
     </section>
 
     <!-- STEP 1: Stages orientation -->
@@ -278,22 +283,19 @@
     <!-- STEP 3: Core diagnostic -->
     <section class="step" data-step="3">
       <div class="eyebrow">The Core Diagnostic</div>
-      <h2 class="display">What's the GTM problem you're bringing to Arcadia?</h2>
-      <p class="sub">Pick your top two. These are the most common challenges revenue leaders at your stage are actively working through. Be honest — this shapes your table.</p>
+      <h2 class="display">What are your biggest GTM Challenges Today?</h2>
+      <p class="sub">Rank your top three in priority order — tap to add, then drag to reorder. Your #1 decides which table you sit at, so be honest, not diplomatic.</p>
 
-      <div class="choices" data-group="top_challenges" data-mode="multi" data-max="2">
-        <button class="choice" data-multi="true" data-value="Pipeline quality and forecast accuracy"><span class="dot"></span><span class="label">Pipeline quality and forecast accuracy</span></button>
-        <button class="choice" data-multi="true" data-value="Sales and marketing alignment"><span class="dot"></span><span class="label">Sales and marketing alignment</span></button>
-        <button class="choice" data-multi="true" data-value="Onboarding and ramping new revenue hires"><span class="dot"></span><span class="label">Onboarding and ramping new revenue hires</span></button>
-        <button class="choice" data-multi="true" data-value="Building repeatable playbooks (getting off hero dependency)"><span class="dot"></span><span class="label">Building repeatable playbooks (getting off hero dependency)</span></button>
-        <button class="choice" data-multi="true" data-value="Compensation and incentive structure"><span class="dot"></span><span class="label">Compensation and incentive structure</span></button>
-        <button class="choice" data-multi="true" data-value="Top of funnel — generating qualified demand"><span class="dot"></span><span class="label">Top of funnel — generating qualified demand</span></button>
-        <button class="choice" data-multi="true" data-value="Customer retention and expansion (NRR)"><span class="dot"></span><span class="label">Customer retention and expansion (NRR)</span></button>
-        <button class="choice" data-multi="true" data-value="RevOps and tech stack consolidation"><span class="dot"></span><span class="label">RevOps and tech stack consolidation</span></button>
-        <button class="choice" data-multi="true" data-value="Hiring the right GTM leaders"><span class="dot"></span><span class="label">Hiring the right GTM leaders</span></button>
-        <button class="choice" data-multi="true" data-value="Moving from founder-led to team-led sales"><span class="dot"></span><span class="label">Moving from founder-led to team-led sales</span></button>
+      <div class="choices" data-group="top_challenges" data-mode="rank" data-max="3">
+        <button class="choice" data-value="Pipeline honesty & forecast accuracy"><span class="dot"></span><span class="label">Pipeline honesty & forecast accuracy</span></button>
+        <button class="choice" data-value="Sales, marketing & CS alignment"><span class="dot"></span><span class="label">Sales, marketing & CS alignment</span></button>
+        <button class="choice" data-value="Ramping people & operationalizing what works"><span class="dot"></span><span class="label">Ramping people & operationalizing what works</span></button>
+        <button class="choice" data-value="Repeatable playbooks over hero dependency"><span class="dot"></span><span class="label">Repeatable playbooks over hero dependency</span></button>
+        <button class="choice" data-value="Generating qualified demand (top of funnel)"><span class="dot"></span><span class="label">Generating qualified demand (top of funnel)</span></button>
+        <button class="choice" data-value="Retention & expansion (NRR)"><span class="dot"></span><span class="label">Retention & expansion (NRR)</span></button>
+        <button class="choice" data-value="Scaling the team & leadership bench"><span class="dot"></span><span class="label">Scaling the team & leadership bench</span></button>
       </div>
-      <div class="helper" id="multiHelper">Select up to two.</div>
+      <div class="helper" id="multiHelper">Tap to add your top three, then drag to reorder.</div>
 
       <div class="field">
         <label for="challengeDescription">What this looks like day-to-day</label>
@@ -338,12 +340,12 @@
         <dl>
           <dt>Revenue band</dt><dd id="sumRevenue">—</dd>
           <dt>Role</dt><dd id="sumRole">—</dd>
-          <dt>Top challenges</dt><dd><div class="tags" id="sumTags"></div></dd>
+          <dt>Your priorities</dt><dd><div class="tags" id="sumTags"></div></dd>
           <dt>Reflection</dt><dd id="sumReflection" style="color:var(--good)">Saved.</dd>
         </dl>
       </div>
 
-      <p class="lead" style="margin-top:22px">Based on your diagnostic, you'll be grouped with leaders working through similar challenges at Arcadia. Your table will have 6–8 people — some at your stage, some who've already been through it.</p>
+      <p class="lead" style="margin-top:22px">Based on your #1 problem and company size, we'll seat you with 8–10 leaders working the same thing at a similar — and deliberately different — scale. Some are ahead of you on it; some are right where you are.</p>
       <p class="lead">The conversation starts with a personal reflection prompt you'll receive in the room. What you just wrote is the warmup.</p>
 
       <div class="btn-row">
@@ -381,6 +383,7 @@
     step: 0,
     totalSteps: 6, // 0..5
     name: "",
+    email: "",
     revenue_band: "",
     role: "",
     top_challenges: [],
@@ -407,6 +410,67 @@
     } catch(e){}
   };
 
+  // ---- RANK RENDERING ----
+  function renderRanks(group){
+    const list = state[group.dataset.group] || [];
+    $$(".choice", group).forEach(btn => {
+      const rank = list.indexOf(btn.dataset.value);
+      const dot = $(".dot", btn);
+      if(rank >= 0){ btn.classList.add("ranked"); dot.textContent = String(rank+1); }
+      else { btn.classList.remove("ranked"); dot.textContent = ""; }
+    });
+  }
+
+  // Reflow ranked items to the top (in priority order), unranked below in original order.
+  function layoutRanks(group){
+    const list = state[group.dataset.group] || [];
+    const byVal = {};
+    $$(".choice", group).forEach(b => { byVal[b.dataset.value] = b; });
+    list.forEach(v => { if(byVal[v]) group.appendChild(byVal[v]); });
+    (group.__order || []).forEach(v => { if(!list.includes(v) && byVal[v]) group.appendChild(byVal[v]); });
+    renderRanks(group);
+  }
+
+  // ---- DRAG-TO-REORDER (rank groups) ----
+  let dragCtx = null;      // active drag state
+  let justDragged = false; // suppress the click that follows a drag
+  function bindRankDrag(group){
+    const key = group.dataset.group;
+    group.addEventListener("pointerdown", e => {
+      const btn = e.target.closest(".choice");
+      if(!btn || !btn.classList.contains("ranked")) return;
+      dragCtx = { btn, value: btn.dataset.value, startY: e.clientY, moved: false, pid: e.pointerId };
+      try { btn.setPointerCapture(e.pointerId); } catch(_){}
+    });
+    group.addEventListener("pointermove", e => {
+      if(!dragCtx) return;
+      if(!dragCtx.moved && Math.abs(e.clientY - dragCtx.startY) < 6) return;
+      if(!dragCtx.moved){ dragCtx.moved = true; dragCtx.btn.classList.add("dragging"); }
+      const list = state[key];
+      const ranked = $$(".choice.ranked", group);
+      let target = null;
+      for(const b of ranked){
+        if(b === dragCtx.btn) continue;
+        const r = b.getBoundingClientRect();
+        if(e.clientY < r.top + r.height/2){ target = b; break; }
+      }
+      list.splice(list.indexOf(dragCtx.value), 1);
+      const to = target ? list.indexOf(target.dataset.value) : list.length;
+      list.splice(to, 0, dragCtx.value);
+      layoutRanks(group);
+    });
+    const end = e => {
+      if(!dragCtx) return;
+      const moved = dragCtx.moved;
+      dragCtx.btn.classList.remove("dragging");
+      try { dragCtx.btn.releasePointerCapture(dragCtx.pid); } catch(_){}
+      dragCtx = null;
+      if(moved){ justDragged = true; saveDraft(); refreshGates(); }
+    };
+    group.addEventListener("pointerup", end);
+    group.addEventListener("pointercancel", end);
+  }
+
   // ---- RENDER STEPS ----
   function showStep(n){
     state.step = Math.max(0, Math.min(state.totalSteps-1, n));
@@ -430,32 +494,37 @@
       const key = group.dataset.group;
       const mode = group.dataset.mode;
       const max = Number(group.dataset.max || 1);
+      if(mode === "rank"){
+        group.__order = $$(".choice", group).map(b => b.dataset.value);
+        bindRankDrag(group);
+      }
       group.addEventListener("click", e => {
+        if(justDragged){ justDragged = false; return; }
         const btn = e.target.closest(".choice");
         if(!btn) return;
         const val = btn.dataset.value;
         if(mode === "single"){
           state[key] = val;
           $$(".choice", group).forEach(c => c.classList.toggle("selected", c === btn));
-        } else {
+        } else if(mode === "rank"){
           const list = state[key];
           const idx = list.indexOf(val);
           if(idx >= 0){
             list.splice(idx,1);
-            btn.classList.remove("selected");
           } else {
             if(list.length >= max){
-              toast(`Pick up to ${max}.`);
+              toast(`Rank up to ${max}. Tap one to remove it first.`);
               return;
             }
             list.push(val);
-            btn.classList.add("selected");
           }
+          layoutRanks(group);
           const helper = $("#multiHelper");
           if(helper){
-            helper.textContent = list.length === max
-              ? `Two selected — you can change either by tapping it.`
-              : `Select up to ${max}. (${list.length}/${max} chosen)`;
+            helper.textContent =
+              list.length === 0 ? `Tap to add your top three, then drag to reorder.`
+              : list.length >= max ? `Ranked all three. Drag to reorder, or tap one to remove it.`
+              : `${list.length} ranked — tap your next priority, then drag to reorder. (up to ${max})`;
           }
         }
         saveDraft();
@@ -477,8 +546,11 @@
 
   // ---- INPUTS ----
   function bindInputs(){
-    const fn = $("#firstName");
-    fn.addEventListener("input", () => { state.name = fn.value.trim(); saveDraft(); });
+    const fn = $("#fullName");
+    fn.addEventListener("input", () => { state.name = fn.value.trim(); saveDraft(); refreshGates(); });
+
+    const em = $("#email");
+    em.addEventListener("input", () => { state.email = em.value.trim(); saveDraft(); refreshGates(); });
 
     const cd = $("#challengeDescription");
     const cdc = $("#cdCount");
@@ -503,7 +575,8 @@
     const next = $$(`.step[data-step="${step}"] [data-next]`)[0];
     if(!next) return;
     let ok = true;
-    if(step === 2) ok = !!state.revenue_band && !!state.role;
+    if(step === 0) ok = state.name.trim().length >= 2 && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(state.email.trim());
+    else if(step === 2) ok = !!state.revenue_band && !!state.role;
     else if(step === 3) ok = state.top_challenges.length >= 1 && state.challenge_description.trim().length >= 10;
     else if(step === 4) ok = state.prior_attempts.trim().length >= 20;
     next.disabled = !ok;
@@ -511,7 +584,8 @@
 
   // ---- HYDRATE FROM DRAFT ----
   function hydrate(){
-    if(state.name) $("#firstName").value = state.name;
+    if(state.name) $("#fullName").value = state.name;
+    if(state.email) $("#email").value = state.email;
     if(state.challenge_description){
       $("#challengeDescription").value = state.challenge_description;
       $("#cdCount").textContent = state.challenge_description.length;
@@ -524,6 +598,7 @@
     $$(".choices").forEach(group => {
       const key = group.dataset.group;
       const mode = group.dataset.mode;
+      if(mode === "rank"){ layoutRanks(group); return; }
       $$(".choice", group).forEach(btn => {
         const v = btn.dataset.value;
         const sel = mode === "single" ? state[key] === v : (state[key]||[]).includes(v);
@@ -537,9 +612,11 @@
     const payload = {
       timestamp: new Date().toISOString(),
       name: state.name || null,
+      email: state.email || null,
       revenue_band: state.revenue_band,
       role: state.role,
-      top_challenges: state.top_challenges,
+      primary_problem: state.top_challenges[0] || null,
+      ranked_problems: state.top_challenges,
       challenge_description: state.challenge_description.trim(),
       prior_attempts: state.prior_attempts.trim(),
       source: "arcadia-prework"
@@ -571,12 +648,18 @@
 
     // HubSpot Forms API (best-effort)
     if(!HUBSPOT_PORTAL_ID.startsWith("[INSERT") && !HUBSPOT_FORM_GUID.startsWith("[INSERT")){
+      const parts = (state.name || "").trim().split(/\s+/);
+      const firstname = parts.shift() || "";
+      const lastname = parts.join(" ");
       const hsBody = {
         fields: [
-          {name:"firstname", value: state.name || ""},
+          {name:"email", value: state.email || ""},
+          {name:"firstname", value: firstname},
+          {name:"lastname", value: lastname},
           {name:"revenue_band", value: state.revenue_band},
           {name:"gtm_role", value: state.role},
-          {name:"top_challenges", value: state.top_challenges.join("; ")},
+          {name:"primary_problem", value: state.top_challenges[0] || ""},
+          {name:"top_challenges", value: state.top_challenges.map((c,i)=>`${i+1}. ${c}`).join("; ")},
           {name:"challenge_description", value: state.challenge_description},
           {name:"prior_attempts", value: state.prior_attempts}
         ],
@@ -593,9 +676,9 @@
     $("#sumRevenue").textContent = state.revenue_band || "—";
     $("#sumRole").textContent = state.role || "—";
     const tags = $("#sumTags"); tags.innerHTML = "";
-    state.top_challenges.forEach(c => {
+    state.top_challenges.forEach((c,i) => {
       const span = document.createElement("span");
-      span.className = "tag"; span.textContent = c;
+      span.className = "tag"; span.textContent = `${i+1} · ${c}`;
       tags.appendChild(span);
     });
     const cal = $("#calBtn");
@@ -626,14 +709,14 @@
     const table = document.createElement("table");
     table.style.cssText="width:100%;border-collapse:collapse;font-size:13px";
     table.innerHTML = `<thead><tr>
-      ${["When","Name","Revenue","Role","Top Challenges","Day-to-Day","Prior Attempts"]
+      ${["When","Name","Email","Revenue","Role","Ranked Problems","Day-to-Day","Prior Attempts"]
         .map(h=>`<th style="text-align:left;border-bottom:1px solid #262c34;padding:8px;color:#c9a96a;text-transform:uppercase;font-size:11px;letter-spacing:.14em">${h}</th>`).join("")}
       </tr></thead>`;
     const tb = document.createElement("tbody");
     all.slice().reverse().forEach(r => {
       const tr = document.createElement("tr");
-      tr.innerHTML = [r.timestamp, r.name||"—", r.revenue_band, r.role,
-        (r.top_challenges||[]).join(" · "), r.challenge_description, r.prior_attempts]
+      tr.innerHTML = [r.timestamp, r.name||"—", r.email||"—", r.revenue_band, r.role,
+        (r.ranked_problems||[]).map((c,i)=>`${i+1}. ${c}`).join("  "), r.challenge_description, r.prior_attempts]
         .map(v=>`<td style="border-bottom:1px solid #1a1f25;padding:10px;vertical-align:top">${(v??"").toString().replace(/[<>&]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]))}</td>`).join("");
       tb.appendChild(tr);
     });
