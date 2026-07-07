@@ -71,6 +71,12 @@
     font-weight:800;letter-spacing:-.02em;
     font-size:clamp(30px,6vw,44px);line-height:1.06;margin:0 0 18px
   }
+  h1.display .hl{color:var(--accent)}
+  h1.display .lede{
+    display:block;margin-top:14px;
+    font-family:'DM Sans',system-ui,sans-serif;font-weight:500;
+    font-size:clamp(16px,2.7vw,20px);letter-spacing:0;line-height:1.34;color:var(--ink-dim);
+  }
   h2.display{
     font-family:'Blinker',system-ui,sans-serif;font-weight:700;letter-spacing:-.02em;
     font-size:clamp(24px,4.6vw,32px);line-height:1.12;margin:0 0 14px
@@ -203,10 +209,10 @@
     <!-- STEP 0: Welcome -->
     <section class="step active" data-step="0">
       <div class="eyebrow">Bridging the GTM Gap® · Prework</div>
-      <h1 class="display">5 Minutes Before the Room Changes Everything</h1>
-      <p class="lead">You're joining 60+ revenue leaders for a 90-minute working session at Arcadia. This isn't a keynote. It's not a panel. It's a peer-driven diagnostic where serious people get honest about the real gaps in their go-to-market.</p>
-      <p class="lead">To make the most of your 90 minutes, we need 5 of yours now.</p>
-      <p class="lead">Your answers shape who you sit with, what your table works on, and what you walk out with. The more honest you are here, the more valuable the room will be.</p>
+      <h1 class="display">Take <span class="hl">5 Minutes</span> Now<span class="lede">to enable a better experience during the GTM Gap® Session</span></h1>
+      <p class="lead">You're joining 60+ revenue leaders for a 90-minute working session at Arcadia. This isn't a keynote. It's not a panel. It's a peer-driven survey where people get honest about the real gaps in their go-to-market.</p>
+      <p class="lead">To make the most of our 90 minutes together, we need a quick 5 minutes of yours in advance.</p>
+      <p class="lead">Your answers shape who you sit with, what your table works on, and what you walk away learning. The more honest you are here, the more valuable the session will be.</p>
 
       <div class="field">
         <label for="fullName">Full name</label>
@@ -219,7 +225,7 @@
       </div>
 
       <div class="btn-row">
-        <button class="btn btn-primary" data-next disabled>Start the Diagnostic →</button>
+        <button class="btn btn-primary" data-next disabled>Start the Survey →</button>
       </div>
       <div class="helper" style="margin-top:10px">About 5 minutes. Please finish by <b>[INSERT CUTOFF DATE]</b> — after that we lock the tables and can't seat late responses.</div>
     </section>
@@ -293,9 +299,9 @@
       </div>
     </section>
 
-    <!-- STEP 3: Core diagnostic -->
+    <!-- STEP 3: Core survey -->
     <section class="step" data-step="3">
-      <div class="eyebrow">The Core Diagnostic</div>
+      <div class="eyebrow">The Core Survey</div>
       <h2 class="display">What are your biggest GTM Challenges Today?</h2>
       <p class="sub">Rank your top three in priority order — tap to add, then drag to reorder. Your #1 decides which table you sit at, so be honest, not diplomatic.</p>
 
@@ -334,12 +340,12 @@
         <textarea class="textarea" id="priorAttempts" maxlength="1200" rows="6"
           placeholder="Be specific. Not 'we tried to improve pipeline' but 'we added a new qualification framework in Q1 and saw a 2-week improvement in cycle time but it broke down when new reps joined.'"></textarea>
         <div class="count"><span id="paCount">0</span> / 1200 · 3–5 sentences</div>
-        <div class="helper italic" style="margin-top:10px">This stays between you and the Revenue Reimagined team. Chatham House Rules apply to what you share in the room and in this diagnostic.</div>
+        <div class="helper italic" style="margin-top:10px">This stays between you and the Revenue Reimagined team. Chatham House Rules apply to what you share in the room and in this survey.</div>
       </div>
 
       <div class="btn-row">
         <button class="btn btn-ghost" data-prev>Back</button>
-        <button class="btn btn-primary" data-next disabled>Submit My Diagnostic →</button>
+        <button class="btn btn-primary" data-next disabled>Submit My Survey →</button>
       </div>
     </section>
 
@@ -349,7 +355,7 @@
       <h2 class="display">Here's what happens next.</h2>
 
       <div class="summary" id="summaryCard">
-        <h4>Your Diagnostic</h4>
+        <h4>Your Survey</h4>
         <dl>
           <dt>Revenue band</dt><dd id="sumRevenue">—</dd>
           <dt>Role</dt><dd id="sumRole">—</dd>
@@ -360,10 +366,10 @@
 
       <p class="lead" style="margin-top:22px">Based on your #1 problem and company size, we'll seat you with 8–10 leaders working the same thing at a similar — and deliberately different — scale. Some are ahead of you on it; some are right where you are.</p>
       <p class="lead">The conversation starts with a personal reflection prompt you'll receive in the room. What you just wrote is the warmup.</p>
-      <p class="sub">Your responses are saved with the Revenue Reimagined team. Download a copy of your diagnostic to bring with you.</p>
+      <p class="sub">Your responses are saved with the Revenue Reimagined team. Download a copy of your survey to bring with you.</p>
 
       <div class="btn-row">
-        <button class="btn btn-primary" id="pdfBtn" type="button">Download My Diagnostic (PDF)</button>
+        <button class="btn btn-primary" id="pdfBtn" type="button">Download My Survey (PDF)</button>
         <a class="btn btn-ghost" id="calBtn" href="#" target="_blank" rel="noopener">Add Workshop to Calendar</a>
       </div>
       <div class="helper" style="margin-top:8px">[INSERT DATE / TIME / LOCATION] — the calendar link above is a placeholder until event details are finalized.</div>
@@ -749,7 +755,7 @@
     y += 42;
 
     doc.setFont("helvetica","bold").setFontSize(24).setTextColor(...navy);
-    doc.text("Your GTM Gap® Diagnostic", M, y);
+    doc.text("Your GTM Gap® Survey", M, y);
     y += 22;
     doc.setFont("helvetica","normal").setFontSize(11).setTextColor(...mute);
     const dateStr = new Date().toLocaleDateString(undefined,{year:"numeric",month:"long",day:"numeric"});
@@ -793,8 +799,8 @@
     doc.setFont("helvetica","normal").setFontSize(8).setTextColor(...mute);
     doc.text("Chatham House Rules apply.   revenue-reimagined.com   ·   arcadialeadershipexperience.com", M, fy + 14);
 
-    const safe = (state.name || "diagnostic").replace(/[^a-z0-9]+/gi,"-").replace(/^-+|-+$/g,"").toLowerCase() || "diagnostic";
-    doc.save(`gtm-gap-diagnostic-${safe}.pdf`);
+    const safe = (state.name || "survey").replace(/[^a-z0-9]+/gi,"-").replace(/^-+|-+$/g,"").toLowerCase() || "survey";
+    doc.save(`gtm-gap-survey-${safe}.pdf`);
   }
 
   // ---- ADMIN VIEW (?admin=1) ----
