@@ -191,6 +191,79 @@
     .brand{padding:18px 24px}
     main{padding:48px 24px 100px}
   }
+
+  /* ===== PDF EXPORT (2-page Letter result sheet, off-screen render target) ===== */
+  #pdfx-root{position:fixed;left:-10000px;top:0;z-index:-1}
+  .pdfx-page{width:816px;min-height:1056px;position:relative;overflow:visible;box-sizing:border-box;
+    font-family:'DM Sans',system-ui,sans-serif;display:flex;flex-direction:column}
+  .pdfx-p1{background:#FFFFFF;color:#043159;padding:57.6px 65.3px 52.8px}
+  .pdfx-p2{background:#043159;color:#FFFFFF;padding:57.6px 65.3px 52.8px}
+  .pdfx-eyebrow{font-weight:700;text-transform:uppercase;letter-spacing:.16em}
+
+  .pdfx-p1-head{display:flex;align-items:center;justify-content:space-between;border-bottom:1.5px solid #043159;padding-bottom:16px}
+  .pdfx-cobrand{display:flex;align-items:center;gap:16px}
+  .pdfx-cobrand img.pdfx-rr{height:30px;width:auto;display:block;flex-shrink:0}
+  .pdfx-cobrand .pdfx-div{width:1px;height:44px;background:#C8CED4;flex-shrink:0}
+  .pdfx-cobrand img.pdfx-arc{height:46px;width:auto;display:block;flex-shrink:0}
+  .pdfx-head-eyebrow{color:#3379A2;font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:12px;white-space:nowrap;padding-left:22px}
+
+  .pdfx-title{margin-top:30px}
+  .pdfx-title .pdfx-eyebrow{color:#3379A2;font-size:12px}
+  .pdfx-h1{font-family:'Blinker',sans-serif;font-weight:600;font-size:48px;line-height:1.04;color:#043159;margin:10px 0 0;letter-spacing:-.01em}
+  .pdfx-h1 em{font-style:italic;color:#3379A2;font-weight:600}
+  .pdfx-greenrule{width:80px;height:4px;background:#C9E954;margin:16px 0 0;border-radius:2px}
+  .pdfx-namedate{color:#4D6A85;font-size:15px;margin-top:14px;font-weight:500}
+
+  .pdfx-sec{color:#3379A2;font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:11px;margin:26px 0 12px}
+  .pdfx-sec .pdfx-sub{color:#7A8FA3;font-weight:600;letter-spacing:.12em}
+
+  .pdfx-where{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .pdfx-wcard{background:#F5F5F5;border-radius:10px;padding:16px 18px}
+  .pdfx-wcard .pdfx-wl{color:#7A8FA3;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em}
+  .pdfx-wcard .pdfx-wv{font-family:'Blinker',sans-serif;font-weight:600;font-size:24px;color:#043159;margin-top:6px;line-height:1.15}
+
+  .pdfx-prob{display:flex;align-items:center;gap:14px;border:1px solid #E5E5E5;border-radius:10px;padding:13px 16px;margin-bottom:8px}
+  .pdfx-rank{width:26px;height:26px;flex-shrink:0;border-radius:50%;background:#E5EAF0;color:#043159;font-family:'Blinker',sans-serif;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+  .pdfx-rank.is-1{background:#C9E954}
+  .pdfx-prob-t{font-size:16px;color:#043159;font-weight:500;line-height:1.3}
+
+  .pdfx-quotes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px;align-items:start}
+  .pdfx-quote{border-radius:10px;padding:16px 18px}
+  .pdfx-quote.qa{background:#D2EEF7;border-left:4px solid #C9E954}
+  .pdfx-quote.qb{background:#F5F5F5;border-left:4px solid #3379A2}
+  .pdfx-quote .pdfx-ql{color:#3379A2;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px}
+  .pdfx-quote .pdfx-qt{font-family:'Blinker',sans-serif;font-style:italic;font-size:15px;line-height:1.42;color:#043159;font-weight:400}
+
+  .pdfx-cta{background:#043159;border-radius:12px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:22px}
+  .pdfx-cta-h{font-family:'Blinker',sans-serif;font-weight:600;font-size:22px;color:#fff;line-height:1.1}
+  .pdfx-cta-sub{font-size:13px;margin-top:6px;color:rgba(255,255,255,.72);line-height:1.4}
+  .pdfx-cta-sub b{color:#C9E954;font-weight:700}
+  .pdfx-cta-btn{width:46px;height:46px;flex-shrink:0;border-radius:50%;background:#C9E954;color:#043159;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700}
+
+  .pdfx-foot{margin-top:auto;border-top:1px solid #E5E5E5;padding-top:14px;display:flex;align-items:center;justify-content:space-between;color:#7A8FA3;font-size:11px}
+  .pdfx-foot b{color:#4D6A85;font-weight:600}
+
+  .pdfx-halftone{position:absolute;top:-40px;right:-40px;width:340px;height:auto;opacity:.16;pointer-events:none}
+  .pdfx-p2-head{display:flex;align-items:center;justify-content:space-between;border-bottom:1.5px solid rgba(255,255,255,.12);padding-bottom:16px;position:relative;z-index:1}
+  .pdfx-p2-head img{height:30px;width:auto;display:block;flex-shrink:0}
+  .pdfx-p2-head .pdfx-eyebrow{color:#C9E954;font-size:12px}
+  .pdfx-p2-title{margin-top:30px;position:relative;z-index:1}
+  .pdfx-p2-title .pdfx-eyebrow{color:#C9E954;font-size:12px}
+  .pdfx-h1-navy{font-family:'Blinker',sans-serif;font-weight:600;font-size:44px;line-height:1.05;color:#fff;margin:10px 0 0;letter-spacing:-.01em}
+  .pdfx-h1-navy em{font-style:italic;color:#C9E954;font-weight:600}
+  .pdfx-p2-sub{color:rgba(255,255,255,.75);font-size:15px;margin-top:14px;line-height:1.45;max-width:620px}
+  .pdfx-stages{margin-top:26px;position:relative;z-index:1}
+  .pdfx-scard{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:18px 22px;margin-bottom:12px;display:flex;gap:20px;align-items:flex-start}
+  .pdfx-scard-l{width:118px;flex-shrink:0;display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+  .pdfx-snum{font-family:'Blinker',sans-serif;font-weight:600;font-size:30px;color:#C9E954;line-height:1}
+  .pdfx-sicon{width:56px;height:56px;display:flex;align-items:center;justify-content:center}
+  .pdfx-sicon img{max-width:100%;max-height:100%;object-fit:contain}
+  .pdfx-scard-r{flex:1}
+  .pdfx-stitle{font-family:'Blinker',sans-serif;font-weight:600;font-size:22px;color:#fff;line-height:1.1}
+  .pdfx-sdesc{font-size:14px;color:rgba(255,255,255,.75);line-height:1.5;margin-top:6px}
+  .pdfx-p2-foot{margin-top:auto;border-top:1px solid rgba(255,255,255,.12);padding-top:14px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
+  .pdfx-p2-foot .pdfx-tm{color:#C9E954;font-weight:700;font-size:12px}
+  .pdfx-p2-foot .pdfx-urls{color:rgba(255,255,255,.6);font-size:11px}
 </style>
 </head>
 <body>
@@ -389,6 +462,7 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
 (() => {
   // ---- CONFIG ----
@@ -734,73 +808,178 @@
     showStep(5);
   }
 
-  // ---- PDF DOWNLOAD (branded one-pager) ----
-  function downloadPdf(){
+  // ---- PDF DOWNLOAD (branded 2-page Letter result sheet) ----
+  // Page 1: personalized results (white). Page 2: fixed "Four Stages" methodology (navy).
+  // Rendered as off-screen DOM, rasterized per page via html2canvas, placed into jsPDF.
+
+  const PDFX_STAGES = [
+    { n:"01", icon:"assets/icon-stabilization.png", title:"Stabilization",
+      desc:"Stop the bleeding and gain visibility. Get an honest read on pipeline reality, team capability, product-market fit, and data integrity before building anything on top." },
+    { n:"02", icon:"assets/icon-foundation.png", title:"Foundation",
+      desc:"Build the structural infrastructure for growth. Turn vision into a strategic roadmap, develop the team, design real processes, and deploy a tech stack that enables execution." },
+    { n:"03", icon:"assets/icon-repeatability.png", title:"Repeatability",
+      desc:"Engineer predictable revenue. Formalize playbooks, standardize training, and unify messaging so results stop depending on a few heroes. This is where predictable revenue is born." },
+    { n:"04", icon:"assets/icon-scalability.png", title:"Scalability",
+      desc:"Compound growth efficiently. Expand into new markets and segments, and scale processes and infrastructure to handle volume without sacrificing quality, profitability, or customer experience." }
+  ];
+
+  const escHtml = s => String(s == null ? "" : s)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+
+  function buildPdfDom(){
+    const dateStr = new Date().toLocaleDateString("en-US", {year:"numeric", month:"long", day:"numeric"});
+    const name = state.name && state.name.trim() ? state.name.trim() : "Guest";
+    const dd = state.challenge_description && state.challenge_description.trim() ? state.challenge_description.trim() : "Not provided.";
+    const pa = state.prior_attempts && state.prior_attempts.trim() ? state.prior_attempts.trim() : "Not provided.";
+
+    const probs = (state.top_challenges || []).slice(0,3);
+    const rows = (probs.length ? probs : ["No priorities selected yet."]).map((p,i) => `
+        <div class="pdfx-prob">
+          <span class="pdfx-rank ${i===0 ? "is-1" : ""}">${i+1}</span>
+          <span class="pdfx-prob-t">${escHtml(p)}</span>
+        </div>`).join("");
+
+    const stages = PDFX_STAGES.map(s => `
+        <div class="pdfx-scard">
+          <div class="pdfx-scard-l">
+            <div class="pdfx-snum">${s.n}</div>
+            <div class="pdfx-sicon"><img src="${s.icon}" alt="${s.title} icon"></div>
+          </div>
+          <div class="pdfx-scard-r">
+            <div class="pdfx-stitle">${s.title}</div>
+            <div class="pdfx-sdesc">${s.desc}</div>
+          </div>
+        </div>`).join("");
+
+    const root = document.createElement("div");
+    root.id = "pdfx-root";
+    root.innerHTML = `
+      <div class="pdfx-page pdfx-p1">
+        <div class="pdfx-p1-head">
+          <div class="pdfx-cobrand">
+            <img class="pdfx-rr" src="assets/rr-horizontal-gradient-navy-text.png" alt="Revenue Reimagined">
+            <div class="pdfx-div"></div>
+            <img class="pdfx-arc" src="assets/arcadia-color.png" alt="Arcadia Leadership Experience">
+          </div>
+          <div class="pdfx-head-eyebrow">Bridge Your GTM Gap&reg;</div>
+        </div>
+
+        <div class="pdfx-title">
+          <div class="pdfx-eyebrow">Your Results</div>
+          <div class="pdfx-h1">Your GTM Gap&reg; <em>Survey</em></div>
+          <div class="pdfx-greenrule"></div>
+          <div class="pdfx-namedate">${escHtml(name)} &middot; ${dateStr}</div>
+        </div>
+
+        <div class="pdfx-sec">Where You Are</div>
+        <div class="pdfx-where">
+          <div class="pdfx-wcard"><div class="pdfx-wl">Revenue Band</div><div class="pdfx-wv">${escHtml(state.revenue_band || "Not provided")}</div></div>
+          <div class="pdfx-wcard"><div class="pdfx-wl">Role</div><div class="pdfx-wv">${escHtml(state.role || "Not provided")}</div></div>
+        </div>
+
+        <div class="pdfx-sec">The Problems You're Bringing <span class="pdfx-sub">&middot; In Priority Order</span></div>
+        ${rows}
+
+        <div class="pdfx-quotes">
+          <div class="pdfx-quote qa">
+            <div class="pdfx-ql">What This Looks Like Day-to-Day</div>
+            <div class="pdfx-qt">&ldquo;${escHtml(dd)}&rdquo;</div>
+          </div>
+          <div class="pdfx-quote qb">
+            <div class="pdfx-ql">What You've Already Tried</div>
+            <div class="pdfx-qt">&ldquo;${escHtml(pa)}&rdquo;</div>
+          </div>
+        </div>
+
+        <div class="pdfx-cta">
+          <div>
+            <div class="pdfx-cta-h">Bring this to Arcadia.</div>
+            <div class="pdfx-cta-sub">What you wrote is the warmup. <b>It's time to get in the game.</b></div>
+          </div>
+          <div class="pdfx-cta-btn">&rarr;</div>
+        </div>
+
+        <div class="pdfx-foot">
+          <b>Chatham House Rules apply.</b>
+          <span>revenue-reimagined.com &middot; arcadialeadershipexperience.com</span>
+        </div>
+      </div>
+
+      <div class="pdfx-page pdfx-p2">
+        <img class="pdfx-halftone" src="assets/halftone-green.png" alt="">
+        <div class="pdfx-p2-head">
+          <img src="assets/rr-horizontal-gradient-white-text.png" alt="Revenue Reimagined">
+          <div class="pdfx-eyebrow">The Methodology</div>
+        </div>
+
+        <div class="pdfx-p2-title">
+          <div class="pdfx-eyebrow">The Four Stages</div>
+          <div class="pdfx-h1-navy">The GTM Gap&reg; has four <em>stages</em>.</div>
+          <div class="pdfx-p2-sub">Each phase builds on the one before it. Skipping ahead is the most common mistake.</div>
+        </div>
+
+        <div class="pdfx-stages">
+          ${stages}
+        </div>
+
+        <div class="pdfx-p2-foot">
+          <span class="pdfx-tm">Predictable, Responsible Revenue.</span>
+          <span class="pdfx-urls">revenue-reimagined.com &middot; arcadialeadershipexperience.com</span>
+        </div>
+      </div>`;
+    return root;
+  }
+
+  async function pdfxWaitForAssets(root){
+    if(document.fonts && document.fonts.ready){ try { await document.fonts.ready; } catch(e){} }
+    const imgs = $$("img", root);
+    await Promise.all(imgs.map(im => (im.complete && im.naturalWidth)
+      ? Promise.resolve()
+      : new Promise(res => { im.onload = im.onerror = res; })));
+  }
+
+  async function downloadPdf(){
     const Ctor = window.jspdf && window.jspdf.jsPDF;
-    if(!Ctor){ toast("PDF is still loading — try again in a second."); return; }
-    const doc = new Ctor({unit:"pt", format:"letter"});
-    const W = doc.internal.pageSize.getWidth();
-    const H = doc.internal.pageSize.getHeight();
-    const M = 56;
-    const navy=[4,49,89], green=[201,233,84], slate=[51,121,162], ink=[34,42,54], mute=[110,128,146];
-    let y = 64;
-    const pageBreak = (need=90) => { if(y > H - need){ doc.addPage(); y = 64; } };
+    if(!Ctor || !window.html2canvas){ toast("PDF is still loading — try again in a second."); return; }
 
-    doc.setFont("helvetica","bold").setFontSize(9).setTextColor(...navy);
-    doc.text("REVENUE REIMAGINED   ×   ARCADIA", M, y);
-    doc.setFont("helvetica","normal").setTextColor(...mute);
-    doc.text("Bridging the GTM Gap®", W - M, y, {align:"right"});
-    y += 14;
-    doc.setDrawColor(...green).setLineWidth(2.5).line(M, y, W - M, y);
-    y += 42;
+    const btn = $("#pdfBtn");
+    const prevLabel = btn ? btn.textContent : "";
+    if(btn){ btn.disabled = true; btn.textContent = "Generating your PDF…"; }
 
-    doc.setFont("helvetica","bold").setFontSize(24).setTextColor(...navy);
-    doc.text("Your GTM Gap® Survey", M, y);
-    y += 22;
-    doc.setFont("helvetica","normal").setFontSize(11).setTextColor(...mute);
-    const dateStr = new Date().toLocaleDateString(undefined,{year:"numeric",month:"long",day:"numeric"});
-    doc.text(`${state.name || "—"}   ·   ${dateStr}`, M, y);
-    y += 34;
+    const root = buildPdfDom();
+    document.body.appendChild(root);
 
-    const section = (label) => {
-      pageBreak();
-      doc.setFont("helvetica","bold").setFontSize(9).setTextColor(...slate);
-      doc.text(label.toUpperCase(), M, y); y += 16;
-    };
-    const body = (text, size=11) => {
-      doc.setFont("helvetica","normal").setFontSize(size).setTextColor(...ink);
-      const lines = doc.splitTextToSize(text && text.trim() ? text.trim() : "—", W - M*2);
-      lines.forEach(ln => { pageBreak(); doc.text(ln, M, y); y += size + 4; });
-      y += 12;
-    };
+    try {
+      await pdfxWaitForAssets(root);
 
-    section("Where you are");
-    body(`${state.revenue_band || "—"}      ·      ${state.role || "—"}`);
+      const PT = 0.75;               // 96px (CSS) -> 72pt (PDF)
+      const pages = $$(".pdfx-page", root);
+      let doc = null;
 
-    section("The problems you're bringing (in priority order)");
-    doc.setFont("helvetica","normal").setFontSize(11).setTextColor(...ink);
-    (state.top_challenges.length ? state.top_challenges : ["—"]).forEach((c,i) => {
-      const lines = doc.splitTextToSize(`${i+1}.   ${c}`, W - M*2);
-      lines.forEach(ln => { pageBreak(); doc.text(ln, M, y); y += 15; });
-      y += 4;
-    });
-    y += 10;
+      for(let i = 0; i < pages.length; i++){
+        const el = pages[i];
+        const w = 816;
+        const h = Math.max(1056, Math.ceil(el.scrollHeight));  // grow only if content overflows a Letter page
+        const canvas = await window.html2canvas(el, {
+          scale: 2, width: w, height: h, windowWidth: w, windowHeight: h,
+          backgroundColor: null, useCORS: true, logging: false
+        });
+        const img = canvas.toDataURL("image/jpeg", 0.92);
+        const pw = w * PT, ph = h * PT;
+        if(i === 0){ doc = new Ctor({unit:"pt", format:[pw, ph], compress:true}); }
+        else { doc.addPage([pw, ph]); }
+        doc.addImage(img, "JPEG", 0, 0, pw, ph);
+      }
 
-    section("What this looks like day-to-day");
-    body(state.challenge_description);
-
-    section("What you've already tried");
-    body(state.prior_attempts);
-
-    const fy = H - 62;
-    doc.setDrawColor(...green).setLineWidth(1.5).line(M, fy - 18, W - M, fy - 18);
-    doc.setFont("helvetica","bold").setFontSize(10).setTextColor(...navy);
-    doc.text("Bring this to Arcadia. What you wrote is the warmup — the room does the rest.", M, fy);
-    doc.setFont("helvetica","normal").setFontSize(8).setTextColor(...mute);
-    doc.text("Chatham House Rules apply.   revenue-reimagined.com   ·   arcadialeadershipexperience.com", M, fy + 14);
-
-    const safe = (state.name || "survey").replace(/[^a-z0-9]+/gi,"-").replace(/^-+|-+$/g,"").toLowerCase() || "survey";
-    doc.save(`gtm-gap-survey-${safe}.pdf`);
+      const safe = (state.name || "survey").replace(/[^a-z0-9]+/gi,"-").replace(/^-+|-+$/g,"").toLowerCase() || "survey";
+      doc.save(`gtm-gap-survey-${safe}.pdf`);
+    } catch(err){
+      console.error("PDF generation failed:", err);
+      toast("Sorry — the PDF couldn't be generated. Please try again.");
+    } finally {
+      document.body.removeChild(root);
+      if(btn){ btn.disabled = false; btn.textContent = prevLabel || "Download My Survey (PDF)"; }
+    }
   }
 
   // ---- ADMIN VIEW (?admin=1) ----
